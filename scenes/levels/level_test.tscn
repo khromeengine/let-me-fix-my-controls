@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://c0xfyku0sbiel"]
+
+[ext_resource type="BoxMesh" uid="uid://chtbjxkfug52c" path="res://assets/testmesh.tres" id="1_h0hot"]
+[ext_resource type="PackedScene" uid="uid://ji2ol84wk7wi" path="res://scenes/player_character.tscn" id="2_yluh8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xcsdh"]
+size = Vector3(85.56146, 1, 102.309326)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xcsdh"]
+top_radius = 81.083
+bottom_radius = 86.112
+height = 77.727
+
+[node name="LevelTest" type="Node3D" unique_id=1680206996]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=501868949]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=704912539]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.402191, 0, -34.124146)
+shape = SubResource("BoxShape3D_xcsdh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=2029344960]
+transform = Transform3D(7.926203, 0, 0, 0, 1, 0, 0, 0, -9.539537, 5.6852207, 0.4995, -25.716309)
+mesh = ExtResource("1_h0hot")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1566912224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 108.81302, 0)
+light_energy = 0.0
+
+[node name="PlayerCharacter" parent="." unique_id=1537911358 instance=ExtResource("2_yluh8")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=882843496]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 133.0731, 9.618889, -69.86162)
+mesh = SubResource("CylinderMesh_xcsdh")
