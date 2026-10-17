@@ -33,4 +33,13 @@ audio
 - [ ] bgm, maybe 2 or 3 tracks?
   - [ ] main menu short loop or ambiance 
   - [ ] ingame loop or two? 
-- [ ] sound effects TBD 
+- [ ] sound effects TBD
+  - [ ] walking
+  - [ ] jumping
+  - [ ] sprinting?
+  - [ ] jumping *really* high?
+  - [ ] moving through the air
+  - [ ] menuing
+    - [ ] menu clicking
+    - [ ] menu slide bar
+    - [ ] game start
