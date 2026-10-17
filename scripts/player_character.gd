@@ -16,7 +16,7 @@ const DELTA_LERP_CONSTANT = 12
 @export var max_backing_speed: float = 10
 @export var min_speed: float = 0.1
 
-@export var default_cam_sens = 0.5
+@export var default_cam_sens = 0.1
 @export var default_cam_y_ratio = 1.0
 
 var _moved_last_frame: bool = true
@@ -36,7 +36,6 @@ func _physics_process(delta: float) -> void:
 	var did_strafe = do_strafing(delta)
 	
 	_moved_last_frame = did_forward_movement or did_strafe
-	
 	
 	move_and_slide()
 
@@ -99,8 +98,6 @@ func handle_friction(delta: float, moving: bool) -> void:
 		if horz_velocity.length() <= min_speed * max_walking_speed and not moving:
 			horz_velocity = Vector2.ZERO
 		else:
-			print("a")
-			print(horz_velocity)
 			horz_velocity = lerp(horz_velocity, Vector2.ZERO, 1 - friction ** (DELTA_LERP_CONSTANT * delta))
 		velocity.x = horz_velocity.x
 		velocity.z = horz_velocity.y
@@ -112,7 +109,6 @@ func handle_drag(delta: float, moving: bool) -> void:
 		if horz_velocity.length() <= min_speed * max_walking_speed and not moving:
 			horz_velocity = Vector2.ZERO
 		else:
-			print("a")
 			horz_velocity = lerp(horz_velocity, Vector2.ZERO, 1 - drag ** (DELTA_LERP_CONSTANT * delta))
 		velocity.x = horz_velocity.x
 		velocity.z = horz_velocity.y
@@ -126,3 +122,5 @@ func apply_gravity(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		do_camera_movement(Vector2(event.screen_relative.x, event.screen_relative.y * default_cam_y_ratio))
+		
+		get_viewport().set_input_as_handled()
