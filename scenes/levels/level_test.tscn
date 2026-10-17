@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://c0xfyku0sbiel"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xcsdh"]
+size = Vector3(85.56146, 1, 102.309326)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xcsdh"]
+
+[node name="LevelTest" type="Node3D" unique_id=1680206996]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=501868949]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=704912539]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.402191, 0, -34.124146)
+shape = SubResource("BoxShape3D_xcsdh")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=451667451]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=2130569408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3127966, 0)
+shape = SubResource("CapsuleShape3D_xcsdh")
