@@ -11,7 +11,7 @@ func _helper_get_action_strength_arbitrary(input: InputEvent) -> float:
 	if input is InputEventMouseButton:
 		return float(Input.is_mouse_button_pressed(input.button_index))
 	else:
-		return -1
+		return 0
 
 
 func _helper_add_action_strength(accum: float, a: InputEvent) -> float:
