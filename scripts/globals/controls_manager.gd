@@ -10,17 +10,9 @@ signal add_bind(StringName, InputEvent)
 signal remove_bind(StringName, InputEvent)
 
 
-func _helper_get_action_strength_arbitrary(input: InputEvent) -> float:
-	if input is InputEventKey:
-		return float(Input.is_key_pressed(input.physical_keycode))
-	if input is InputEventMouseButton:
-		return float(Input.is_mouse_button_pressed(input.button_index))
-	else:
-		return 0
-
-
-func _helper_add_action_strength(accum: float, a: InputEvent) -> float:
-	return accum + _helper_get_action_strength_arbitrary(a)
+func _ready():
+	add_bind.connect(_handle_add_bind)
+	remove_bind.connect(_handle_remove_bind)
 
 
 func get_total_strength_of_action(action: StringName) -> float:
@@ -32,3 +24,31 @@ func _input(event: InputEvent) -> void:
 		open_pause_menu.emit()
 	if event.is_action_pressed("force_open_controls_menu"):
 		open_controls_menu.emit()
+
+
+func _handle_add_bind(action: StringName, input: InputEvent):
+	if InputMap.has_action(action):
+		InputMap.action_add_event(action, input)
+	else:
+		push_warning("Tried to add input ", input.as_text(), " to bad action ", action)
+
+
+func _handle_remove_bind(action: StringName, input: InputEvent):
+	if InputMap.has_action(action):
+		if input != null:
+			InputMap.action_erase_event(action, input)
+	else:
+		push_warning("Tried to remove input ", input.as_text(), " from bad action ", action)
+
+
+func _helper_add_action_strength(accum: float, a: InputEvent) -> float:
+	return accum + _helper_get_action_strength_arbitrary(a)
+
+
+func _helper_get_action_strength_arbitrary(input: InputEvent) -> float:
+	if input is InputEventKey:
+		return float(Input.is_key_pressed(input.physical_keycode))
+	if input is InputEventMouseButton:
+		return float(Input.is_mouse_button_pressed(input.button_index))
+	else:
+		return 0

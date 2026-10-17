@@ -54,6 +54,9 @@ func open_button_to_listen():
 
 func delete_button(pos: int):
 	var pointed_button = button_array.pop_at(pos)
+	if pointed_button.held_input == null:
+		return
+	ControlsManager.remove_bind.emit(target_action, pointed_button.held_input)
 	pointed_button.open_button_for_listening.disconnect(_handle_button_press)
 	pointed_button.queue_free()
 
