@@ -1,0 +1,8 @@
+[gd_resource type="BoxMesh" format=3 uid="uid://chtbjxkfug52c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_afvsu"]
+albedo_color = Color(0.37254903, 0.23921569, 0.28627452, 1)
+
+[resource]
+material = SubResource("StandardMaterial3D_afvsu")
+size = Vector3(20.455078, 0.001, 77.06543)
