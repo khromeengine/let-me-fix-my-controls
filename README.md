@@ -40,6 +40,6 @@ audio
   - [ ] jumping *really* high?
   - [ ] moving through the air
   - [ ] menuing
-    - [ ] menu clicking
-    - [ ] menu slide bar
-    - [ ] game start
+	- [ ] menu clicking
+	- [ ] menu slide bar
+	- [ ] game start
