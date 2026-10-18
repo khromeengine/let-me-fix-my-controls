@@ -5,12 +5,15 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xcsdh"]
 
 [node name="PlayerCharacter" type="CharacterBody3D" unique_id=1537911358 node_paths=PackedStringArray("coyote_timer", "collision_box")]
+wall_min_slide_angle = 0.7853982
 script = ExtResource("1_56udc")
 coyote_timer = NodePath("CoyoteTimer")
 collision_box = NodePath("CollisionShape3D")
 fwd_movement_speed = 60.0
 strafe_speed = 45.0
 backing_speed = 30.0
+jump_strength = 6.0
+gravity = 12.0
 max_walking_speed = 10.0
 max_strafing_speed = 7.5
 max_backing_speed = 5.0

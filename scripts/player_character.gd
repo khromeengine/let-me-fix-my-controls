@@ -58,6 +58,8 @@ var height: float = 2.0:
 
 
 func _ready() -> void:
+	ControlsManager.player_character = self
+	ControlsManager.current_checkpoint = global_position
 	ControlsManager.fov_change.connect(_on_fov_change)
 
 
@@ -141,11 +143,11 @@ func try_jump():
 		jump_velocity *= crouch_stacks
 		jump_velocity.x *= horizontal_jump_multiplier
 		jump_velocity.z *= horizontal_jump_multiplier
-	if sign(jump_velocity.x) != sign(velocity.x):
+	if sign(jump_velocity.x) != sign(velocity.x) and jump_velocity.x != 0:
 		velocity.x = jump_velocity.x
 	else:
 		velocity.x += jump_velocity.x
-	if sign(jump_velocity.z) != sign(velocity.z):
+	if sign(jump_velocity.z) != sign(velocity.z) and jump_velocity.z != 0:
 		velocity.z = jump_velocity.z
 	else:
 		velocity.z += jump_velocity.z
@@ -172,7 +174,7 @@ func _do_arbitrary_directional_movement(button_strength: float, delta: float, mo
 func do_camera_movement(vec: Vector2) -> void:
 	cam_yaw.rotate_y(-vec.x * ControlsManager.camera_sensitivity * default_cam_sens)
 	cam_pitch.rotate_x(-vec.y * ControlsManager.camera_sensitivity * default_cam_sens)
-	cam_pitch.rotation.x = clampf(cam_pitch.rotation.x, -PI/6, PI/6)
+	cam_pitch.rotation.x = clampf(cam_pitch.rotation.x, -PI/2, PI/2)
 	pass
 
 
@@ -211,6 +213,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 	if event.is_action_pressed("jump"):
 		try_jump()
+
+
+func _handle_reset():
+	global_position = Vector3.ZERO
 
 
 func _on_fov_change(fov: float):

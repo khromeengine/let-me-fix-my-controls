@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://bse80ffl1l3qq" path="res://scripts/in_game_menu.gd" id="1_0cve7"]
 [ext_resource type="Script" uid="uid://ientg2iyya2r" path="res://scripts/settings_menu.gd" id="2_0rq4b"]
 [ext_resource type="PackedScene" uid="uid://cli1laraifjyp" path="res://scenes/key_change_entry.tscn" id="2_q5csu"]
+[ext_resource type="PackedScene" uid="uid://dda23vq24rs6i" path="res://scenes/texturemissing.tscn" id="4_efgmv"]
 
-[node name="InGameMenu" type="Control" unique_id=508419916 node_paths=PackedStringArray("pause_menu", "settings", "resume_button", "settings_button")]
+[node name="InGameMenu" type="Control" unique_id=508419916 node_paths=PackedStringArray("pause_menu", "settings", "resume_button", "settings_button", "reset_button")]
 process_mode = 2
 visible = false
 layout_mode = 3
@@ -20,6 +21,7 @@ pause_menu = NodePath("PauseMenu")
 settings = NodePath("SettingsMenu")
 resume_button = NodePath("PauseMenu/PauseBody/ResumeButton")
 settings_button = NodePath("PauseMenu/PauseBody/SettingsButton")
+reset_button = NodePath("PauseMenu/PauseBody/ResetButton")
 
 [node name="PauseMenu" type="Control" parent="." unique_id=1713809393]
 visible = false
@@ -74,9 +76,9 @@ text = "Resume
 layout_mode = 2
 text = "Settings"
 
-[node name="ExitButton" type="Button" parent="PauseMenu/PauseBody" unique_id=1540475665]
+[node name="ResetButton" type="Button" parent="PauseMenu/PauseBody" unique_id=1540475665]
 layout_mode = 2
-text = "Exit Game"
+text = "Reset"
 
 [node name="SettingsMenu" type="Control" parent="." unique_id=1858310855 node_paths=PackedStringArray("game_body", "control_body", "sound_body", "game_selection_button", "control_selection_button", "sound_selection_button", "return_button", "sensitivity_slider", "fov_slider")]
 layout_mode = 1
@@ -291,3 +293,15 @@ text = "Music"
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 10
+
+[node name="Control" parent="." unique_id=1032766717 instance=ExtResource("4_efgmv")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -15.0
+offset_top = 374.0
+offset_right = 4.0
+offset_bottom = 374.0
+grow_horizontal = 1
+grow_vertical = 1

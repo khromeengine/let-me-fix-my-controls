@@ -7,6 +7,8 @@ signal open_pause_menu
 signal open_controls_menu
 signal closed_pause_menu
 
+signal reset
+
 signal camera_sens_change(float)
 signal fov_change(float)
 
@@ -22,7 +24,12 @@ var paused = false:
 		return paused
 
 
+var player_character: PlayerCharacter = null
+var current_checkpoint: Vector3 = Vector3.ZERO
+
+
 func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	add_bind.connect(_handle_add_bind)
 	remove_bind.connect(_handle_remove_bind)
@@ -30,10 +37,18 @@ func _ready():
 	open_pause_menu.connect(_on_open_pause_menu)
 	open_controls_menu.connect(_on_open_controls_menu)
 	camera_sens_change.connect(_on_cam_sens_change)
+	reset.connect(_on_reset)
 
 
 func get_total_strength_of_action(action: StringName) -> float:
 	return InputMap.action_get_events(action).reduce(_helper_add_action_strength, 0.0)
+
+
+
+func _on_reset():
+	if player_character != null:
+		player_character.global_position = current_checkpoint
+	closed_pause_menu.emit()
 
 
 func _input(event: InputEvent) -> void:
