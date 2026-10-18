@@ -78,7 +78,7 @@ text = "Settings"
 layout_mode = 2
 text = "Exit Game"
 
-[node name="SettingsMenu" type="Control" parent="." unique_id=1858310855 node_paths=PackedStringArray("control_body", "sound_body", "control_selection_button", "sound_selection_button", "return_button")]
+[node name="SettingsMenu" type="Control" parent="." unique_id=1858310855 node_paths=PackedStringArray("game_body", "control_body", "sound_body", "game_selection_button", "control_selection_button", "sound_selection_button", "return_button", "sensitivity_slider", "fov_slider")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -92,11 +92,15 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_0rq4b")
+game_body = NodePath("SettingsBody/ToggleSettings/GameBody")
 control_body = NodePath("SettingsBody/ToggleSettings/ControlsBody")
 sound_body = NodePath("SettingsBody/ToggleSettings/SoundBody")
+game_selection_button = NodePath("SettingsBody/SettingSelect/SettingsSelection/GameButton")
 control_selection_button = NodePath("SettingsBody/SettingSelect/SettingsSelection/ControlsButton")
 sound_selection_button = NodePath("SettingsBody/SettingSelect/SettingsSelection/SoundButton")
 return_button = NodePath("SettingsBody/SettingSelect/SettingsSelection/ReturnButton")
+sensitivity_slider = NodePath("SettingsBody/ToggleSettings/GameBody/CameraSensitivity/HSlider")
+fov_slider = NodePath("SettingsBody/ToggleSettings/GameBody/FOV/HSlider")
 
 [node name="SettingsBody" type="HBoxContainer" parent="SettingsMenu" unique_id=1183975511]
 layout_mode = 1
@@ -129,6 +133,10 @@ offset_right = -54.0
 offset_bottom = 75.0
 size_flags_vertical = 0
 
+[node name="GameButton" type="Button" parent="SettingsMenu/SettingsBody/SettingSelect/SettingsSelection" unique_id=715842410]
+layout_mode = 2
+text = "Game"
+
 [node name="ControlsButton" type="Button" parent="SettingsMenu/SettingsBody/SettingSelect/SettingsSelection" unique_id=1615069969]
 layout_mode = 2
 text = "Controls
@@ -147,7 +155,42 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 6.89
 
+[node name="GameBody" type="VBoxContainer" parent="SettingsMenu/SettingsBody/ToggleSettings" unique_id=2106940033]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CameraSensitivity" type="HBoxContainer" parent="SettingsMenu/SettingsBody/ToggleSettings/GameBody" unique_id=1692095144]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/SettingsBody/ToggleSettings/GameBody/CameraSensitivity" unique_id=1405257163]
+layout_mode = 2
+text = "Camera Sensitivity"
+
+[node name="HSlider" type="HSlider" parent="SettingsMenu/SettingsBody/ToggleSettings/GameBody/CameraSensitivity" unique_id=250603064]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+max_value = 1.0
+step = 0.01
+
+[node name="FOV" type="HBoxContainer" parent="SettingsMenu/SettingsBody/ToggleSettings/GameBody" unique_id=1273951729]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/SettingsBody/ToggleSettings/GameBody/FOV" unique_id=1406435474]
+layout_mode = 2
+text = "FOV"
+
+[node name="HSlider" type="HSlider" parent="SettingsMenu/SettingsBody/ToggleSettings/GameBody/FOV" unique_id=1925099711]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+min_value = 40.0
+max_value = 120.0
+value = 85.0
+
 [node name="ControlsBody" type="ScrollContainer" parent="SettingsMenu/SettingsBody/ToggleSettings" unique_id=1360096592]
+visible = false
 custom_minimum_size = Vector2(250, 300)
 propagate_maximum_size = true
 layout_mode = 1

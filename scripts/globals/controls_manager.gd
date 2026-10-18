@@ -1,10 +1,14 @@
 extends Node
 
 var camera_sensitivity: float = 0.1
+var fov: float = 80
 
 signal open_pause_menu
 signal open_controls_menu
 signal closed_pause_menu
+
+signal camera_sens_change(float)
+signal fov_change(float)
 
 signal add_bind(StringName, InputEvent)
 signal remove_bind(StringName, InputEvent)
@@ -25,6 +29,7 @@ func _ready():
 	closed_pause_menu.connect(_on_closed_pause_menu)
 	open_pause_menu.connect(_on_open_pause_menu)
 	open_controls_menu.connect(_on_open_controls_menu)
+	camera_sens_change.connect(_on_cam_sens_change)
 
 
 func get_total_strength_of_action(action: StringName) -> float:
@@ -42,15 +47,23 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_open_pause_menu():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	paused = true
 
 
 func _on_closed_pause_menu():
+	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 	paused = false
 
 
 func _on_open_controls_menu():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	paused = true
+
+
+func _on_cam_sens_change(sens: float):
+	print("asdf")
+	camera_sensitivity = sens
 
 
 func _handle_add_bind(action: StringName, input: InputEvent):

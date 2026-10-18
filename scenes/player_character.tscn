@@ -4,8 +4,10 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xcsdh"]
 
-[node name="PlayerCharacter" type="CharacterBody3D" unique_id=1537911358]
+[node name="PlayerCharacter" type="CharacterBody3D" unique_id=1537911358 node_paths=PackedStringArray("coyote_timer", "collision_box")]
 script = ExtResource("1_56udc")
+coyote_timer = NodePath("CoyoteTimer")
+collision_box = NodePath("CollisionShape3D")
 metadata/_custom_type_script = "uid://djhhfdbvibdur"
 
 [node name="CameraYaw" type="Node3D" parent="." unique_id=1938052057]
@@ -18,7 +20,11 @@ current = true
 
 [node name="LookDirection" type="RayCast3D" parent="CameraYaw/CameraPitch" unique_id=491838313]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0012573004, 0)
+visible = false
 target_position = Vector3(0, 0, -1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1815997849]
 shape = SubResource("CapsuleShape3D_xcsdh")
+debug_color = Color(0, 0.6008166, 0.6972495, 0.41960785)
+
+[node name="CoyoteTimer" type="Timer" parent="." unique_id=1907238809]
