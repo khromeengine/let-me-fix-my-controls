@@ -186,3 +186,9 @@ transform = Transform3D(4.0287247, 8.876112, 0.9623215, -8.69905, 4.140109, -1.7
 
 [node name="ObjectBase7" parent="Terrain3" index="6" unique_id=1401156219 instance=ExtResource("9_dga24")]
 transform = Transform3D(60, 0, 0, 0, 60, 0, 0, 0, 60, 0, -897.6665, -3356.924)
+
+[node name="ObjectBase8" parent="Terrain3" index="7" unique_id=2001643706 instance=ExtResource("3_nsrm0")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, -4000, 0)
+
+[node name="ObjectBase9" parent="Terrain3" index="8" unique_id=1490730180 instance=ExtResource("5_6761a")]
+transform = Transform3D(-3.3487525, 0, -14.621418, 0, 15, 0, 14.621418, 0, -3.3487525, 0, -16000, 0)

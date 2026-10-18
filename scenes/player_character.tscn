@@ -1,14 +1,24 @@
 [gd_scene format=3 uid="uid://ji2ol84wk7wi"]
 
 [ext_resource type="Script" uid="uid://djhhfdbvibdur" path="res://scripts/player_character.gd" id="1_56udc"]
+[ext_resource type="AudioStream" uid="uid://cj73142xytnyi" path="res://assets/sound/jump.wav" id="2_6r27q"]
+[ext_resource type="AudioStream" uid="uid://ui0s1drp4mxk" path="res://assets/sound/crouch.wav" id="3_kww55"]
+[ext_resource type="AudioStream" uid="uid://b3oauxd5fijn" path="res://assets/sound/walking this loops brtw.wav" id="4_uj7mf"]
+[ext_resource type="AudioStream" uid="uid://cs1pn2d8w13hu" path="res://assets/sound/sprinting this loops too.wav" id="5_2vmgx"]
+[ext_resource type="AudioStream" uid="uid://cmbnjr8vjuewr" path="res://assets/sound/jumplong.wav" id="6_2vmgx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xcsdh"]
 
-[node name="PlayerCharacter" type="CharacterBody3D" unique_id=1537911358 node_paths=PackedStringArray("coyote_timer", "collision_box")]
+[node name="PlayerCharacter" type="CharacterBody3D" unique_id=1537911358 node_paths=PackedStringArray("coyote_timer", "collision_box", "jump_audio", "crouch_audio", "longjump_audio", "walk_audio", "sprint_audio")]
 wall_min_slide_angle = 0.7853982
 script = ExtResource("1_56udc")
 coyote_timer = NodePath("CoyoteTimer")
 collision_box = NodePath("CollisionShape3D")
+jump_audio = NodePath("JumpAudio")
+crouch_audio = NodePath("CrouchAudio")
+longjump_audio = NodePath("LongJumpAudio")
+walk_audio = NodePath("WalkAudio")
+sprint_audio = NodePath("SprintAudio")
 fwd_movement_speed = 60.0
 strafe_speed = 45.0
 backing_speed = 30.0
@@ -37,3 +47,32 @@ shape = SubResource("CapsuleShape3D_xcsdh")
 debug_color = Color(0, 0.6008166, 0.6972495, 0.41960785)
 
 [node name="CoyoteTimer" type="Timer" parent="." unique_id=1907238809]
+
+[node name="JumpAudio" type="AudioStreamPlayer" parent="." unique_id=1410696528]
+stream = ExtResource("2_6r27q")
+volume_db = -5.473
+max_polyphony = 10
+bus = &"SFX"
+
+[node name="CrouchAudio" type="AudioStreamPlayer" parent="." unique_id=1463464779]
+stream = ExtResource("3_kww55")
+volume_db = -3.649
+max_polyphony = 3
+bus = &"SFX"
+
+[node name="WalkAudio" type="AudioStreamPlayer" parent="." unique_id=1281808286]
+stream = ExtResource("4_uj7mf")
+volume_db = 16.0
+max_polyphony = 3
+bus = &"SFX"
+
+[node name="SprintAudio" type="AudioStreamPlayer" parent="." unique_id=1371650086]
+stream = ExtResource("5_2vmgx")
+volume_db = 16.0
+max_polyphony = 3
+bus = &"SFX"
+
+[node name="LongJumpAudio" type="AudioStreamPlayer" parent="." unique_id=895107602]
+stream = ExtResource("6_2vmgx")
+max_polyphony = 3
+bus = &"SFX"

@@ -8,6 +8,11 @@ const DELTA_LERP_CONSTANT = 12
 @export_category("Dependencies")
 @export var coyote_timer: Timer
 @export var collision_box: CollisionShape3D
+@export var jump_audio: AudioStreamPlayer
+@export var crouch_audio: AudioStreamPlayer
+@export var longjump_audio: AudioStreamPlayer
+@export var walk_audio: AudioStreamPlayer
+@export var sprint_audio: AudioStreamPlayer
 
 @export_category("Movement")
 @export var fwd_movement_speed: float = 120
@@ -45,6 +50,9 @@ var height: float = 2.0:
 		if height == x:
 			return
 		global_position.y += (x - height) / 2
+		if height > x:
+			crouch_audio.pitch_scale = float(crouch_stacks)
+			crouch_audio.play()
 		height = x
 		collision_box.shape.height = x
 		camera.position.y = (height - default_height) / 2
@@ -80,6 +88,11 @@ func _physics_process(delta: float) -> void:
 		_grounded_last_frame = false
 	
 	try_crouch()
+
+	if not is_on_floor() or not _moved_last_frame:
+		sprint_audio.stop()
+		walk_audio.stop()
+	
 	
 	_jumped_last_frame = false
 	
@@ -128,12 +141,13 @@ func try_crouch() -> void:
 
 
 func try_jump():
-	print(is_on_floor())
+	var crouch_jumping: bool = false
 	if not is_on_floor() and coyote_timer.is_stopped():
 		if extra_jumps <= 0:
 			return
 		else:
 			extra_jumps -= 1
+	jump_audio.play()
 	_jumped_last_frame = true
 	coyote_timer.stop()
 	var jump_velocity = jump_strength * jump_dir_vector
@@ -143,6 +157,7 @@ func try_jump():
 		jump_velocity *= crouch_stacks
 		jump_velocity.x *= horizontal_jump_multiplier
 		jump_velocity.z *= horizontal_jump_multiplier
+		crouch_jumping = true
 	if sign(jump_velocity.x) != sign(velocity.x) and jump_velocity.x != 0:
 		velocity.x = jump_velocity.x
 	else:
@@ -151,6 +166,11 @@ func try_jump():
 		velocity.z = jump_velocity.z
 	else:
 		velocity.z += jump_velocity.z
+	if crouch_jumping:
+		longjump_audio.pitch_scale = float(crouch_stacks)
+		longjump_audio.play()
+	else:
+		jump_audio.play()
 	velocity.y = clampf(velocity.y + jump_velocity.y, jump_velocity.y, INF)
 
 
@@ -169,6 +189,19 @@ func _do_arbitrary_directional_movement(button_strength: float, delta: float, mo
 	elif forward_vector.z < 0:
 		if velocity.z >= max_forward_velocity.z:
 			velocity.z = clampf(velocity.z + added_forward_velocity.z, max_forward_velocity.z, INF)
+	if is_on_floor():
+		if Vector2(velocity.x, velocity.z).length() >= max_walking_speed * 1.5:
+			sprint_audio.pitch_scale = log(Vector2(velocity.x, velocity.z).length() / max_walking_speed * 1.5) / 5 + 1
+			if not sprint_audio.playing:
+				sprint_audio.play()
+				walk_audio.stop()
+		else:
+			if not walk_audio.playing:
+				walk_audio.play()
+				sprint_audio.stop()
+	else:
+		sprint_audio.stop()
+		walk_audio.stop()
 
 
 func do_camera_movement(vec: Vector2) -> void:

@@ -17,6 +17,8 @@ enum CurrentMenu {
 @export var resume_button: Button
 @export var settings_button: Button
 @export var reset_button: Button
+@export var open_audio: AudioStreamPlayer
+@export var close_audio: AudioStreamPlayer
 
 
 var state: CurrentMenu = CurrentMenu.PAUSE
@@ -38,13 +40,13 @@ func _handle_reset_pressed():
 
 func _handle_resume_pressed():
 	ControlsManager.closed_pause_menu.emit()
-	_handle_closed_pause_menu()
 
 
 func _handle_settings_pressed():
 	state = CurrentMenu.SETTINGS
 	settings.visible = true
 	pause_menu.visible = false
+	open_audio.play()
 
 
 func _handle_opened_pause_menu():
@@ -52,6 +54,7 @@ func _handle_opened_pause_menu():
 	settings.visible = false
 	pause_menu.visible = true
 	visible = true
+	open_audio.play()
 
 
 func _handle_closed_pause_menu():
@@ -59,6 +62,7 @@ func _handle_closed_pause_menu():
 	settings.visible = false
 	pause_menu.visible = false
 	visible = false
+	close_audio.play()
 
 
 func _handle_open_controls_menu():
@@ -68,9 +72,11 @@ func _handle_open_controls_menu():
 		visible = true
 		pause_menu.visible = false
 		settings.visible = true
+		open_audio.play()
 
 
 func _handle_return_to_pause_menu():
 	state = CurrentMenu.PAUSE
 	settings.visible = false
 	pause_menu.visible = true
+	close_audio.play()

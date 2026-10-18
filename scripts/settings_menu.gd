@@ -17,6 +17,11 @@ enum CurrentMenu {
 @export var return_button: Button
 @export var sensitivity_slider: HSlider
 @export var fov_slider: HSlider
+@export var master_v_slider: HSlider
+@export var sfx_slider: HSlider
+@export var music_slider: HSlider
+@export var open_audio: AudioStreamPlayer
+@export var close_audio: AudioStreamPlayer
 
 
 var state: CurrentMenu = CurrentMenu.GAME
@@ -30,6 +35,12 @@ func _ready():
 	fov_slider.value_changed.connect(fov_change)
 	fov_slider.value = ControlsManager.fov
 	sensitivity_slider.value = ControlsManager.camera_sensitivity
+	master_v_slider.value = AudioServer.get_bus_volume_db(0)
+	sfx_slider.value = AudioServer.get_bus_volume_db(2)
+	music_slider.value = AudioServer.get_bus_volume_db(1)
+	master_v_slider.value_changed.connect(master_change)
+	sfx_slider.value_changed.connect(sfx_change)
+	music_slider.value_changed.connect(music_change)
 
 
 func open_game_menu():
@@ -37,6 +48,7 @@ func open_game_menu():
 	game_body.visible = true
 	sound_body.visible = false
 	control_body.visible = false
+	open_audio.play()
 
 
 func open_control_menu():
@@ -44,6 +56,7 @@ func open_control_menu():
 	game_body.visible = false
 	sound_body.visible = false
 	control_body.visible = true
+	open_audio.play()
 
 
 func open_sound_menu():
@@ -51,6 +64,7 @@ func open_sound_menu():
 	game_body.visible = false
 	sound_body.visible = true
 	control_body.visible = false
+	open_audio.play()
 
 
 func sensitivity_change(sens):
@@ -59,3 +73,15 @@ func sensitivity_change(sens):
 
 func fov_change(fov):
 	ControlsManager.fov_change.emit(fov)
+
+
+func music_change(vol):
+	AudioServer.set_bus_volume_db(1, vol)
+
+
+func sfx_change(vol):
+	AudioServer.set_bus_volume_db(2, vol)
+
+
+func master_change(vol):
+	AudioServer.set_bus_volume_db(0, vol)
