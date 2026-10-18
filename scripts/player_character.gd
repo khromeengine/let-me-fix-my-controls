@@ -27,6 +27,10 @@ var _moved_last_frame: bool = true
 @onready var look_direction = $CameraYaw/CameraPitch/LookDirection
 
 
+func _ready() -> void:
+	ControlsManager.fov_change.connect(_on_fov_change)
+
+
 func _physics_process(delta: float) -> void:
 	handle_friction(delta, _moved_last_frame)
 	handle_drag(delta, _moved_last_frame)
@@ -124,3 +128,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		do_camera_movement(Vector2(event.screen_relative.x, event.screen_relative.y * default_cam_y_ratio))
 		
 		get_viewport().set_input_as_handled()
+
+
+func _on_fov_change(fov: float):
+	camera.fov = fov
