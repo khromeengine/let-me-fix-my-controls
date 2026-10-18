@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cli1laraifjyp"]
+
+[ext_resource type="Script" uid="uid://cwot1dt3wcf6x" path="res://scripts/key_change_entry.gd" id="1_x5fuv"]
+
+[node name="KeyChangeEntry" type="BoxContainer" unique_id=2060200423]
+offset_right = 123.0
+offset_bottom = 23.0
+script = ExtResource("1_x5fuv")
+
+[node name="Label" type="Label" parent="." unique_id=178432348]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Move Forward"
+
+[node name="ButtonContainer" type="VBoxContainer" parent="." unique_id=310129184]
+layout_mode = 2
+size_flags_horizontal = 6
+alignment = 2
