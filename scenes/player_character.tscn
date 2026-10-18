@@ -8,6 +8,12 @@
 script = ExtResource("1_56udc")
 coyote_timer = NodePath("CoyoteTimer")
 collision_box = NodePath("CollisionShape3D")
+fwd_movement_speed = 60.0
+strafe_speed = 45.0
+backing_speed = 30.0
+max_walking_speed = 10.0
+max_strafing_speed = 7.5
+max_backing_speed = 5.0
 metadata/_custom_type_script = "uid://djhhfdbvibdur"
 
 [node name="CameraYaw" type="Node3D" parent="." unique_id=1938052057]

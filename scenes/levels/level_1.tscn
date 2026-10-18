@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://cbi6q0y6hgo8r"]
+
+[ext_resource type="PackedScene" uid="uid://cjv1pmtiqdxb8" path="res://scenes/levels/level_base.tscn" id="1_ksju7"]
+[ext_resource type="PackedScene" uid="uid://j2jpr2bluc8y" path="res://scenes/objects/rock3.tscn" id="2_6iamk"]
+[ext_resource type="PackedScene" uid="uid://dda23vq24rs6i" path="res://scenes/texturemissing.tscn" id="2_sk5k4"]
+[ext_resource type="PackedScene" uid="uid://dlotyvid4dhcn" path="res://scenes/objects/spiral.tscn" id="3_nsrm0"]
+[ext_resource type="Texture2D" uid="uid://ccqs87r51s4ia" path="res://assets/sprites/untextured.png" id="4_6761a"]
+[ext_resource type="PackedScene" uid="uid://5biyjcfauq56" path="res://scenes/objects/spiral2.tscn" id="5_6761a"]
+[ext_resource type="PackedScene" uid="uid://cvsye2opjdcrj" path="res://scenes/objects/fence.tscn" id="7_oc4kc"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xcsdh"]
+size = Vector2(5000, 5000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_afvsu"]
+albedo_texture = ExtResource("4_6761a")
+texture_filter = 2
+
+[node name="LevelBase" unique_id=1413670530 instance=ExtResource("1_ksju7")]
+
+[node name="PlayerCharacter" parent="." index="0" unique_id=1537911358]
+transform = Transform3D(0.66491294, 0, -0.7469209, 0, 1, 0, 0.7469209, 0, 0.66491294, 2.2974186, 2.1065145, -1.5994606)
+
+[node name="DirectionalLight3D" parent="." index="3" unique_id=743962114]
+light_specular = 2.778
+shadow_enabled = true
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." index="4" unique_id=166987738]
+transform = Transform3D(0.6852685, -0.72718877, -0.040046148, 0.077990025, 0.018601658, 0.99678075, -0.72410274, -0.68618566, 0.06946061, 0, 0, 0)
+light_color = Color(0, 0.6156863, 0.8117647, 1)
+light_energy = 0.296
+light_indirect_energy = 1.444
+shadow_enabled = true
+
+[node name="Control" parent="." index="5" unique_id=1032766717 instance=ExtResource("2_sk5k4")]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+grow_vertical = 0
+
+[node name="Terrain" type="Node3D" parent="." index="6" unique_id=15440878]
+
+[node name="ObjectBase" parent="Terrain" index="0" unique_id=649280774 instance=ExtResource("2_6iamk")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -13.171949, 0)
+
+[node name="ObjectBase2" parent="Terrain" index="1" unique_id=1699677786 instance=ExtResource("3_nsrm0")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 1442.0582, -541.79675, 476.33307)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain" index="2" unique_id=72334834]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -266.07837, 0)
+mesh = SubResource("PlaneMesh_xcsdh")
+surface_material_override/0 = SubResource("StandardMaterial3D_afvsu")
+
+[node name="ObjectBase3" parent="Terrain" index="3" unique_id=1472663804 instance=ExtResource("5_6761a")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 854.17596, -99.80261, -1517.7742)
+
+[node name="ObjectBase4" parent="Terrain" index="4" unique_id=1969783389 instance=ExtResource("5_6761a")]
+transform = Transform3D(-1.7365905, 0, -0.9920956, 0, 2, 0, 0.9920956, 0, -1.7365905, -1378.8696, -99.80261, -865.5557)
+
+[node name="Node3D" type="Node3D" parent="Terrain" index="5" unique_id=1819741071]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="ObjectBase5" parent="Terrain/Node3D" index="0" unique_id=1545764360 instance=ExtResource("7_oc4kc")]
+transform = Transform3D(-0.2, 0, 0, 0, -0.2, 0, 0, 0, -0.2, -1.9828782, 1.5168942, 1.8847134)
+
+[node name="ObjectBase6" parent="Terrain/Node3D" index="1" unique_id=53384062 instance=ExtResource("7_oc4kc")]
+transform = Transform3D(0.008200143, 0, -0.19983183, 0, -0.2, 0, 0.19983183, 0, 0.008200143, 5.1603036, 1.5168942, 3.6347508)
+
+[node name="ObjectBase7" parent="Terrain/Node3D" index="2" unique_id=856425174 instance=ExtResource("7_oc4kc")]
+transform = Transform3D(0.19998942, 0, 0.0020573582, 0, -0.19999999, 0, -0.0020573582, 0, 0.19998942, 7.099871, 1.5168942, -3.478119)
+
+[node name="ObjectBase8" parent="Terrain/Node3D" index="3" unique_id=750498519 instance=ExtResource("7_oc4kc")]
+transform = Transform3D(-0.0005665049, 0, 0.19999915, 0, -0.19999999, 0, -0.19999915, 0, -0.0005665049, -0.008874416, 1.5168942, -5.4593954)

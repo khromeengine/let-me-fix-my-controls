@@ -52,7 +52,7 @@ func _on_open_pause_menu():
 
 
 func _on_closed_pause_menu():
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	paused = false
 
 

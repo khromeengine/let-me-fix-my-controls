@@ -172,7 +172,7 @@ func _do_arbitrary_directional_movement(button_strength: float, delta: float, mo
 func do_camera_movement(vec: Vector2) -> void:
 	cam_yaw.rotate_y(-vec.x * ControlsManager.camera_sensitivity * default_cam_sens)
 	cam_pitch.rotate_x(-vec.y * ControlsManager.camera_sensitivity * default_cam_sens)
-	cam_pitch.rotation.x = clampf(cam_pitch.rotation.x, -PI/4, PI/4)
+	cam_pitch.rotation.x = clampf(cam_pitch.rotation.x, -PI/6, PI/6)
 	pass
 
 
@@ -206,6 +206,7 @@ func apply_gravity(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		do_camera_movement(Vector2(event.screen_relative.x, event.screen_relative.y * default_cam_y_ratio))
+		#Input.warp_mouse(get_viewport().get_visible_rect().size / 2)
 		
 		get_viewport().set_input_as_handled()
 	if event.is_action_pressed("jump"):
