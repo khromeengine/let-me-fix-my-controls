@@ -10,9 +10,21 @@ signal add_bind(StringName, InputEvent)
 signal remove_bind(StringName, InputEvent)
 
 
+var paused = false:
+	set(state):
+		get_tree().paused = state
+		paused = state
+	get:
+		return paused
+
+
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	add_bind.connect(_handle_add_bind)
 	remove_bind.connect(_handle_remove_bind)
+	closed_pause_menu.connect(_on_closed_pause_menu)
+	open_pause_menu.connect(_on_open_pause_menu)
+	open_controls_menu.connect(_on_open_controls_menu)
 
 
 func get_total_strength_of_action(action: StringName) -> float:
@@ -21,9 +33,24 @@ func get_total_strength_of_action(action: StringName) -> float:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("open_menu"):
-		open_pause_menu.emit()
+		if paused:
+			closed_pause_menu.emit()
+		else:
+			open_pause_menu.emit()
 	if event.is_action_pressed("force_open_controls_menu"):
 		open_controls_menu.emit()
+
+
+func _on_open_pause_menu():
+	paused = true
+
+
+func _on_closed_pause_menu():
+	paused = false
+
+
+func _on_open_controls_menu():
+	paused = true
 
 
 func _handle_add_bind(action: StringName, input: InputEvent):

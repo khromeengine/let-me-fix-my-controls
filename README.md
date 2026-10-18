@@ -8,8 +8,8 @@ todo:
 
 programming
 - [ ] player char 
-- [ ] camera 
-- [ ] control management + ui 
+- [x] camera 
+- [x] control management + ui 
 - [ ] checkpoints 
 - [ ] menus 
 

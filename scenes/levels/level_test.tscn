@@ -3,6 +3,7 @@
 [ext_resource type="BoxMesh" uid="uid://chtbjxkfug52c" path="res://assets/testmesh.tres" id="1_h0hot"]
 [ext_resource type="PackedScene" uid="uid://ji2ol84wk7wi" path="res://scenes/player_character.tscn" id="2_yluh8"]
 [ext_resource type="Texture2D" uid="uid://cogpmtlqasdcs" path="res://icon.svg" id="3_jp5fc"]
+[ext_resource type="PackedScene" uid="uid://xfq5jww62tsd" path="res://scenes/in_game_menu.tscn" id="4_4ptlp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xcsdh"]
 size = Vector3(85.56146, 1, 102.309326)
@@ -51,3 +52,5 @@ mesh = SubResource("CylinderMesh_xcsdh")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1077597641]
 environment = SubResource("Environment_xcsdh")
+
+[node name="InGameMenu" parent="." unique_id=508419916 instance=ExtResource("4_4ptlp")]

@@ -14,3 +14,5 @@ text = "Move Forward"
 
 [node name="ButtonContainer" type="VBoxContainer" parent="." unique_id=310129184]
 layout_mode = 2
+size_flags_horizontal = 6
+alignment = 2

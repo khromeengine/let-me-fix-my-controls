@@ -36,13 +36,21 @@ func add_new_button():
 
 
 func bind_button(input: InputEvent, pos: int):
-	var pointed_button = button_array[pos] if pos != -1 else button_array.back()
+	var pointed_button: ControlButton = button_array[pos] if pos != -1 else button_array.back()
 	var new_bind = pointed_button.held_input == null
+	var already_binded = false
 	if input is InputEventMouseMotion:
+		return
+	for button in button_array:
+		if button.held_input != null and button.held_input.is_match(input):
+			already_binded = true
+	if already_binded:
+		print("Already bound")
 		return
 	ControlsManager.remove_bind.emit(target_action, pointed_button.held_input)
 	pointed_button.held_input = input
 	ControlsManager.add_bind.emit(target_action, input)
+	pointed_button.request_button_removal.connect(_handle_button_removal_request)
 	pointed_button.text = input.as_text()
 	if new_bind:
 		add_new_button()
@@ -53,11 +61,20 @@ func open_button_to_listen():
 
 
 func delete_button(pos: int):
+	if target_action == "open_menu":
+		var bound_number = 0
+		for button in button_array:
+			if button.held_input != null:
+				bound_number += 1
+		if bound_number <= 1:
+			push_warning("Can't unbind last pause menu")
+			return
 	var pointed_button = button_array.pop_at(pos)
 	if pointed_button.held_input == null:
 		return
 	ControlsManager.remove_bind.emit(target_action, pointed_button.held_input)
 	pointed_button.open_button_for_listening.disconnect(_handle_button_press)
+	pointed_button.request_button_removal.disconnect(_handle_button_removal_request)
 	pointed_button.queue_free()
 
 
@@ -74,3 +91,7 @@ func _input(event):
 func _handle_button_press(button: ControlButton):
 	_is_listening = true
 	_listening_position = button_array.find(button)
+
+
+func _handle_button_removal_request(button: ControlButton):
+	delete_button(button_array.find(button))

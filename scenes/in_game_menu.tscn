@@ -1,9 +1,12 @@
 [gd_scene format=3 uid="uid://xfq5jww62tsd"]
 
 [ext_resource type="Script" uid="uid://bse80ffl1l3qq" path="res://scripts/in_game_menu.gd" id="1_0cve7"]
+[ext_resource type="Script" uid="uid://ientg2iyya2r" path="res://scripts/settings_menu.gd" id="2_0rq4b"]
 [ext_resource type="PackedScene" uid="uid://cli1laraifjyp" path="res://scenes/key_change_entry.tscn" id="2_q5csu"]
 
-[node name="InGameMenu" type="Control" unique_id=508419916]
+[node name="InGameMenu" type="Control" unique_id=508419916 node_paths=PackedStringArray("pause_menu", "settings", "resume_button", "settings_button")]
+process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -13,11 +16,40 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0cve7")
+pause_menu = NodePath("PauseMenu")
+settings = NodePath("SettingsMenu")
+resume_button = NodePath("PauseMenu/PauseBody/ResumeButton")
+settings_button = NodePath("PauseMenu/PauseBody/SettingsButton")
 
 [node name="PauseMenu" type="Control" parent="." unique_id=1713809393]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu" unique_id=975796269]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.5
+offset_top = -79.5
+offset_right = 83.5
+offset_bottom = 79.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5176471)
 
 [node name="PauseBody" type="VBoxContainer" parent="PauseMenu" unique_id=1176139418]
 layout_mode = 1
@@ -46,92 +78,140 @@ text = "Settings"
 layout_mode = 2
 text = "Exit Game"
 
-[node name="SettingsMenu" type="Control" parent="." unique_id=1858310855]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SettingsBody" type="HBoxContainer" parent="SettingsMenu" unique_id=1183975511]
+[node name="SettingsMenu" type="Control" parent="." unique_id=1858310855 node_paths=PackedStringArray("control_body", "sound_body", "control_selection_button", "sound_selection_button", "return_button")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -39.0
-offset_top = -33.0
-offset_right = 47.0
-offset_bottom = 33.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("2_0rq4b")
+control_body = NodePath("SettingsBody/ToggleSettings/ControlsBody")
+sound_body = NodePath("SettingsBody/ToggleSettings/SoundBody")
+control_selection_button = NodePath("SettingsBody/SettingSelect/SettingsSelection/ControlsButton")
+sound_selection_button = NodePath("SettingsBody/SettingSelect/SettingsSelection/SoundButton")
+return_button = NodePath("SettingsBody/SettingSelect/SettingsSelection/ReturnButton")
 
-[node name="SettingsSelection" type="VBoxContainer" parent="SettingsMenu/SettingsBody" unique_id=1035150068]
+[node name="SettingsBody" type="HBoxContainer" parent="SettingsMenu" unique_id=1183975511]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -78.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="SettingSelect" type="Control" parent="SettingsMenu/SettingsBody" unique_id=1858697821]
 layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
 
-[node name="ControlsButton" type="Button" parent="SettingsMenu/SettingsBody/SettingsSelection" unique_id=1615069969]
+[node name="ColorRect" type="ColorRect" parent="SettingsMenu/SettingsBody/SettingSelect" unique_id=2081272804]
+layout_mode = 1
+offset_left = -216.0
+offset_top = -165.0
+offset_right = 304.0
+offset_bottom = 213.0
+color = Color(0, 0, 0, 0.5176471)
+
+[node name="SettingsSelection" type="VBoxContainer" parent="SettingsMenu/SettingsBody/SettingSelect" unique_id=1035150068]
+layout_mode = 0
+offset_left = -128.0
+offset_top = -26.0
+offset_right = -54.0
+offset_bottom = 75.0
+size_flags_vertical = 0
+
+[node name="ControlsButton" type="Button" parent="SettingsMenu/SettingsBody/SettingSelect/SettingsSelection" unique_id=1615069969]
 layout_mode = 2
 text = "Controls
 "
 
-[node name="SoundButton" type="Button" parent="SettingsMenu/SettingsBody/SettingsSelection" unique_id=44579969]
+[node name="SoundButton" type="Button" parent="SettingsMenu/SettingsBody/SettingSelect/SettingsSelection" unique_id=44579969]
 layout_mode = 2
 text = "Sound"
 
+[node name="ReturnButton" type="Button" parent="SettingsMenu/SettingsBody/SettingSelect/SettingsSelection" unique_id=1677635695]
+layout_mode = 2
+text = "Return"
+
 [node name="ToggleSettings" type="Control" parent="SettingsMenu/SettingsBody" unique_id=172689224]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.89
 
-[node name="ControlsBody" type="VBoxContainer" parent="SettingsMenu/SettingsBody/ToggleSettings" unique_id=1961419951]
+[node name="ControlsBody" type="ScrollContainer" parent="SettingsMenu/SettingsBody/ToggleSettings" unique_id=1360096592]
+custom_minimum_size = Vector2(250, 300)
+propagate_maximum_size = true
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 123.0
+offset_right = 115.0
 grow_vertical = 2
+horizontal_scroll_mode = 0
 
-[node name="KeyChangeEntry" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody" unique_id=2060200423 instance=ExtResource("2_q5csu")]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody" unique_id=533495623]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=1448327625]
+layout_mode = 2
+text = "Right-Click to delete a binding!"
+
+[node name="KeyChangeEntry" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=2060200423 instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Move Forward"
 target_action = &"move_forward"
 
-[node name="KeyChangeEntry2" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody" unique_id=1017180969 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry2" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=1017180969 instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Strafe Left"
 target_action = &"strafe_left"
 
-[node name="KeyChangeEntry3" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody" unique_id=1176166482 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry3" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=1176166482 instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Strafe Right"
 target_action = &"strafe_right"
 
-[node name="KeyChangeEntry4" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody" unique_id=242168459 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry4" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=242168459 instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Move Back"
 target_action = &"move_back"
 
-[node name="KeyChangeEntry5" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody" unique_id=41656262 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry5" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=41656262 instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Jump"
 target_action = &"jump"
 
-[node name="KeyChangeEntry6" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody" unique_id=65279945 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry6" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=65279945 instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Crouch"
 target_action = &"crouch"
 
-[node name="KeyChangeEntry7" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody" unique_id=534607254 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry7" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=534607254 instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Open Pause Menu"
 target_action = &"open_menu"
 
-[node name="KeyChangeEntry8" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody" unique_id=2006376109 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry8" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=2006376109 instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Open Controls Menu"
 target_action = &"force_open_controls_menu"
 
 [node name="SoundBody" type="VBoxContainer" parent="SettingsMenu/SettingsBody/ToggleSettings" unique_id=1132100002]
 visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 117.0
+grow_vertical = 2
 
 [node name="MasterVolume" type="HBoxContainer" parent="SettingsMenu/SettingsBody/ToggleSettings/SoundBody" unique_id=1066194061]
 layout_mode = 2
@@ -141,7 +221,9 @@ layout_mode = 2
 text = "Master"
 
 [node name="HSlider" type="HSlider" parent="SettingsMenu/SettingsBody/ToggleSettings/SoundBody/MasterVolume" unique_id=1345400112]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 10
 
 [node name="SFXVolume" type="HBoxContainer" parent="SettingsMenu/SettingsBody/ToggleSettings/SoundBody" unique_id=1287395797]
 layout_mode = 2
@@ -151,7 +233,9 @@ layout_mode = 2
 text = "Sound Effects"
 
 [node name="HSlider" type="HSlider" parent="SettingsMenu/SettingsBody/ToggleSettings/SoundBody/SFXVolume" unique_id=1504446213]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 10
 
 [node name="MusicVolume" type="HBoxContainer" parent="SettingsMenu/SettingsBody/ToggleSettings/SoundBody" unique_id=1529666014]
 layout_mode = 2
@@ -161,4 +245,6 @@ layout_mode = 2
 text = "Music"
 
 [node name="HSlider" type="HSlider" parent="SettingsMenu/SettingsBody/ToggleSettings/SoundBody/MusicVolume" unique_id=1323745176]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 10
