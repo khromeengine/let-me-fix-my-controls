@@ -11,9 +11,18 @@ config_version=5
 [application]
 
 config/name="Let-Me-Fix-My-Controls"
+config/description="Changing controls for unintentional consequences"
 run/main_scene="uid://cbi6q0y6hgo8r"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
+run/max_fps=60
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+boot_splash/image="uid://ccqs87r51s4ia"
+config/icon="uid://ccqs87r51s4ia"
+
+[audio]
+
+buses/default_bus_layout="uid://cttyhxvbb3wx8"
 
 [autoload]
 

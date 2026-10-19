@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://evdq820tg70h" path="res://scenes/objects/pillar.tscn" id="9_dga24"]
 [ext_resource type="PackedScene" uid="uid://bqfvfidsya0fy" path="res://scenes/objects/rock1.tscn" id="10_qxy0u"]
 [ext_resource type="PackedScene" uid="uid://cpoaeebcqxwnw" path="res://scenes/objects/thing.tscn" id="11_excbq"]
+[ext_resource type="AudioStream" uid="uid://krhg55mwnmyl" path="res://assets/sound/GameJam_Controls.wav" id="12_iav0o"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_xcsdh"]
 size = Vector2(5000, 5000)
@@ -192,3 +193,9 @@ transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, -4000, 0)
 
 [node name="ObjectBase9" parent="Terrain3" index="8" unique_id=1490730180 instance=ExtResource("5_6761a")]
 transform = Transform3D(-3.3487525, 0, -14.621418, 0, 15, 0, 14.621418, 0, -3.3487525, 0, -16000, 0)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="13" unique_id=673803391]
+stream = ExtResource("12_iav0o")
+volume_db = -7.298
+autoplay = true
+bus = &"Music"
