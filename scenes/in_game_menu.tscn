@@ -3,8 +3,11 @@
 [ext_resource type="Script" uid="uid://bse80ffl1l3qq" path="res://scripts/in_game_menu.gd" id="1_0cve7"]
 [ext_resource type="Script" uid="uid://ientg2iyya2r" path="res://scripts/settings_menu.gd" id="2_0rq4b"]
 [ext_resource type="PackedScene" uid="uid://cli1laraifjyp" path="res://scenes/key_change_entry.tscn" id="2_q5csu"]
+[ext_resource type="PackedScene" uid="uid://dda23vq24rs6i" path="res://scenes/texturemissing.tscn" id="4_efgmv"]
+[ext_resource type="AudioStream" uid="uid://dj7va2ql8asax" path="res://assets/sound/menu open.wav" id="5_diwu4"]
+[ext_resource type="AudioStream" uid="uid://bbvlkwl3ofgba" path="res://assets/sound/menu close.wav" id="6_vaaqd"]
 
-[node name="InGameMenu" type="Control" unique_id=508419916 node_paths=PackedStringArray("pause_menu", "settings", "resume_button", "settings_button")]
+[node name="InGameMenu" type="Control" unique_id=508419916 node_paths=PackedStringArray("pause_menu", "settings", "resume_button", "settings_button", "reset_button", "open_audio", "close_audio")]
 process_mode = 2
 visible = false
 layout_mode = 3
@@ -20,6 +23,9 @@ pause_menu = NodePath("PauseMenu")
 settings = NodePath("SettingsMenu")
 resume_button = NodePath("PauseMenu/PauseBody/ResumeButton")
 settings_button = NodePath("PauseMenu/PauseBody/SettingsButton")
+reset_button = NodePath("PauseMenu/PauseBody/ResetButton")
+open_audio = NodePath("OpenAudio")
+close_audio = NodePath("CloseAudio")
 
 [node name="PauseMenu" type="Control" parent="." unique_id=1713809393]
 visible = false
@@ -74,11 +80,11 @@ text = "Resume
 layout_mode = 2
 text = "Settings"
 
-[node name="ExitButton" type="Button" parent="PauseMenu/PauseBody" unique_id=1540475665]
+[node name="ResetButton" type="Button" parent="PauseMenu/PauseBody" unique_id=1540475665]
 layout_mode = 2
-text = "Exit Game"
+text = "Reset"
 
-[node name="SettingsMenu" type="Control" parent="." unique_id=1858310855 node_paths=PackedStringArray("game_body", "control_body", "sound_body", "game_selection_button", "control_selection_button", "sound_selection_button", "return_button", "sensitivity_slider", "fov_slider")]
+[node name="SettingsMenu" type="Control" parent="." unique_id=1858310855 node_paths=PackedStringArray("game_body", "control_body", "sound_body", "game_selection_button", "control_selection_button", "sound_selection_button", "return_button", "sensitivity_slider", "fov_slider", "master_v_slider", "sfx_slider", "music_slider", "open_audio", "close_audio")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -101,6 +107,11 @@ sound_selection_button = NodePath("SettingsBody/SettingSelect/SettingsSelection/
 return_button = NodePath("SettingsBody/SettingSelect/SettingsSelection/ReturnButton")
 sensitivity_slider = NodePath("SettingsBody/ToggleSettings/GameBody/CameraSensitivity/HSlider")
 fov_slider = NodePath("SettingsBody/ToggleSettings/GameBody/FOV/HSlider")
+master_v_slider = NodePath("SettingsBody/ToggleSettings/SoundBody/MasterVolume/HSlider")
+sfx_slider = NodePath("SettingsBody/ToggleSettings/SoundBody/SFXVolume/HSlider")
+music_slider = NodePath("SettingsBody/ToggleSettings/SoundBody/MusicVolume/HSlider")
+open_audio = NodePath("../OpenAudio")
+close_audio = NodePath("../CloseAudio")
 
 [node name="SettingsBody" type="HBoxContainer" parent="SettingsMenu" unique_id=1183975511]
 layout_mode = 1
@@ -208,45 +219,61 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "Right-Click to delete a binding!"
 
-[node name="KeyChangeEntry" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=2060200423 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=2060200423 node_paths=PackedStringArray("open_audio", "closed_audio") instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Move Forward"
 target_action = &"move_forward"
+open_audio = NodePath("../../../../../../OpenAudio")
+closed_audio = NodePath("../../../../../../CloseAudio")
 
-[node name="KeyChangeEntry2" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=1017180969 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry2" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=1017180969 node_paths=PackedStringArray("open_audio", "closed_audio") instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Strafe Left"
 target_action = &"strafe_left"
+open_audio = NodePath("../../../../../../OpenAudio")
+closed_audio = NodePath("../../../../../../CloseAudio")
 
-[node name="KeyChangeEntry3" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=1176166482 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry3" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=1176166482 node_paths=PackedStringArray("open_audio", "closed_audio") instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Strafe Right"
 target_action = &"strafe_right"
+open_audio = NodePath("../../../../../../OpenAudio")
+closed_audio = NodePath("../../../../../../CloseAudio")
 
-[node name="KeyChangeEntry4" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=242168459 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry4" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=242168459 node_paths=PackedStringArray("open_audio", "closed_audio") instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Move Back"
 target_action = &"move_back"
+open_audio = NodePath("../../../../../../OpenAudio")
+closed_audio = NodePath("../../../../../../CloseAudio")
 
-[node name="KeyChangeEntry5" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=41656262 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry5" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=41656262 node_paths=PackedStringArray("open_audio", "closed_audio") instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Jump"
 target_action = &"jump"
+open_audio = NodePath("../../../../../../OpenAudio")
+closed_audio = NodePath("../../../../../../CloseAudio")
 
-[node name="KeyChangeEntry6" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=65279945 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry6" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=65279945 node_paths=PackedStringArray("open_audio", "closed_audio") instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Crouch"
 target_action = &"crouch"
+open_audio = NodePath("../../../../../../OpenAudio")
+closed_audio = NodePath("../../../../../../CloseAudio")
 
-[node name="KeyChangeEntry7" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=534607254 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry7" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=534607254 node_paths=PackedStringArray("open_audio", "closed_audio") instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Open Pause Menu"
 target_action = &"open_menu"
+open_audio = NodePath("../../../../../../OpenAudio")
+closed_audio = NodePath("../../../../../../CloseAudio")
 
-[node name="KeyChangeEntry8" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=2006376109 instance=ExtResource("2_q5csu")]
+[node name="KeyChangeEntry8" parent="SettingsMenu/SettingsBody/ToggleSettings/ControlsBody/VBoxContainer" unique_id=2006376109 node_paths=PackedStringArray("open_audio", "closed_audio") instance=ExtResource("2_q5csu")]
 layout_mode = 2
 label_text = "Open Controls Menu"
 target_action = &"force_open_controls_menu"
+open_audio = NodePath("../../../../../../OpenAudio")
+closed_audio = NodePath("../../../../../../CloseAudio")
 
 [node name="SoundBody" type="VBoxContainer" parent="SettingsMenu/SettingsBody/ToggleSettings" unique_id=1132100002]
 visible = false
@@ -267,6 +294,8 @@ text = "Master"
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 10
+min_value = -20.0
+max_value = 6.0
 
 [node name="SFXVolume" type="HBoxContainer" parent="SettingsMenu/SettingsBody/ToggleSettings/SoundBody" unique_id=1287395797]
 layout_mode = 2
@@ -279,6 +308,8 @@ text = "Sound Effects"
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 10
+min_value = -20.0
+max_value = 6.0
 
 [node name="MusicVolume" type="HBoxContainer" parent="SettingsMenu/SettingsBody/ToggleSettings/SoundBody" unique_id=1529666014]
 layout_mode = 2
@@ -291,3 +322,26 @@ text = "Music"
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 10
+min_value = -20.0
+max_value = 6.0
+
+[node name="Control" parent="." unique_id=1032766717 instance=ExtResource("4_efgmv")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -15.0
+offset_top = 374.0
+offset_right = 4.0
+offset_bottom = 374.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="OpenAudio" type="AudioStreamPlayer" parent="." unique_id=672039832]
+stream = ExtResource("5_diwu4")
+max_polyphony = 10
+bus = &"SFX"
+
+[node name="CloseAudio" type="AudioStreamPlayer" parent="." unique_id=1634595482]
+stream = ExtResource("6_vaaqd")
+max_polyphony = 6

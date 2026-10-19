@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cvsye2opjdcrj"]
+
+[ext_resource type="PackedScene" uid="uid://402ah0yj8h5y" path="res://scenes/objects/object_base.tscn" id="1_qoggp"]
+[ext_resource type="ArrayMesh" uid="uid://dul0f38sqrdhw" path="res://assets/mesh/fence.obj" id="2_nwxkd"]
+[ext_resource type="Texture2D" uid="uid://bgl4roxr6gh4v" path="res://assets/sprites/rock.png" id="3_mwwwb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ykbwc"]
+albedo_color = Color(0.79027885, 0.40781477, 2.117753e-06, 1)
+albedo_texture = ExtResource("3_mwwwb")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qoggp"]
+size = Vector3(1.2, 15, 47)
+
+[node name="ObjectBase" unique_id=649280774 instance=ExtResource("1_qoggp")]
+
+[node name="MeshInstance3D" parent="." index="0" unique_id=1253319153]
+mesh = ExtResource("2_nwxkd")
+surface_material_override/0 = SubResource("StandardMaterial3D_ykbwc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1" unique_id=1039316539]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.32, 13)
+shape = SubResource("BoxShape3D_qoggp")

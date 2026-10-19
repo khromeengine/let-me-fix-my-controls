@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b3oauxd5fijn"
+path="res://.godot/imported/walking this loops brtw.wav-369356594e32a630d7df1a01df8b967b.sample"
+
+[deps]
+
+source_file="res://assets/sound/walking this loops brtw.wav"
+dest_files=["res://.godot/imported/walking this loops brtw.wav-369356594e32a630d7df1a01df8b967b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

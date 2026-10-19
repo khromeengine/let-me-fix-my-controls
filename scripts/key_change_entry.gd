@@ -3,11 +3,14 @@ extends BoxContainer
 
 @export var label_text: String
 @export var target_action: StringName
+@export var open_audio: AudioStreamPlayer
+@export var closed_audio: AudioStreamPlayer
 
 var button_array: Array[ControlButton] = []
 
 var _is_listening: bool = false
 var _listening_position: int = -1
+var _inited: bool = false
 
 @onready var button_container = $ButtonContainer
 
@@ -24,12 +27,14 @@ func populate_buttons():
 	add_new_button()
 	for event in InputMap.action_get_events(target_action):
 		bind_button(event, -1)
+	_inited = true
 
 
 func add_new_button():
 	var new_button = ControlButton.new()
 	new_button.text = "-"
 	new_button.held_input = null
+	new_button.open_audio = open_audio
 	new_button.open_button_for_listening.connect(_handle_button_press)
 	button_container.add_child(new_button)
 	button_array.push_back(new_button)
@@ -46,12 +51,15 @@ func bind_button(input: InputEvent, pos: int):
 			already_binded = true
 	if already_binded:
 		print("Already bound")
+		closed_audio.play()
 		return
 	ControlsManager.remove_bind.emit(target_action, pointed_button.held_input)
 	pointed_button.held_input = input
 	ControlsManager.add_bind.emit(target_action, input)
 	pointed_button.request_button_removal.connect(_handle_button_removal_request)
 	pointed_button.text = input.as_text()
+	if _inited:
+		open_audio.play()
 	if new_bind:
 		add_new_button()
 

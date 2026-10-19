@@ -6,10 +6,12 @@ signal request_button_removal(ControlButton)
 
 
 var held_input: InputEvent
+var open_audio: AudioStreamPlayer
 
 
 func _pressed():
 	open_button_for_listening.emit(self)
+	open_audio.play()
 
 
 func _gui_input(event: InputEvent) -> void:
